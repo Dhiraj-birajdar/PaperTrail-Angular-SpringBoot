@@ -186,7 +186,7 @@ public class BookService {
         }
         User user = (User) connectedUser.getPrincipal();
         if (!book.getOwner().getId().equals(user.getId())) {
-            throw new OperationNotPermittedException("You are the owner of this book, you can't approve return.");
+            throw new OperationNotPermittedException("You are not the owner of this book, you can't approve return.");
         }
         BookTransactionHistory bookTransactionHistory = historyRepository.findByBookIdAndOwnerId(bookId, user.getId())
                 .orElseThrow(()-> new OperationNotPermittedException("Book is not returned yet, or you are not the owner of this book, you can't approve return."));
