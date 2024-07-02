@@ -1,9 +1,11 @@
 package com.papertrail.security;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,7 +35,8 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    private Claims extractAllClaims(String token) {
+//    @SneakyThrows(Exception.class)
+    private Claims extractAllClaims(String token){
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -72,6 +75,12 @@ public class JwtService {
     }
 
     private boolean isTokenExpired(String token) {
+
+//        boolean isExpired =  extractExpiration(token).before(new Date());
+//        if(isExpired){
+//            throw new ExpiredJwtException(null, null, "JwrToken has expired");
+//        } // todo : handle this exception in the global exception handler
+        // todo fix ExpiredJwtException
         return extractExpiration(token).before(new Date());
     }
 

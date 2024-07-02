@@ -12,6 +12,7 @@ public enum BuisnessErrorCodes {
     ACCOUNT_DISABLED(303,HttpStatus.FORBIDDEN, "User account is disabled"),
     BAD_CREDENTIALS(304,HttpStatus.FORBIDDEN, "Username or password is incorrect"),
     USERNAME_ALREADY_EXISTS(305,HttpStatus.CONFLICT, "Username already exists try with different username"),
+    JWT_TOKEN_EXPIRED(306,HttpStatus.UNAUTHORIZED, "JWT Token has expired"),
     ;
 
     @Getter

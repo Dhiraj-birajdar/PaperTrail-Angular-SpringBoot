@@ -17,7 +17,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8080",
+            "url": "http://localhost:8080/api/v1",
             "description": "Local server"
         },
         {
@@ -36,11 +36,11 @@
             "description": "Authentication API"
         },
         {
-            "name": "Feedback Controller",
+            "name": "Feedback",
             "description": "Feedback related endpoints"
         },
         {
-            "name": "Book Controller",
+            "name": "Book",
             "description": "Book related endpoints"
         }
     ],
@@ -48,7 +48,7 @@
         "/feedbacks": {
             "post": {
                 "tags": [
-                    "Feedback Controller"
+                    "Feedback"
                 ],
                 "operationId": "saveFeedback",
                 "requestBody": {
@@ -79,7 +79,7 @@
         "/books": {
             "get": {
                 "tags": [
-                    "Book Controller"
+                    "Book"
                 ],
                 "operationId": "findAllBooks",
                 "parameters": [
@@ -119,7 +119,7 @@
             },
             "post": {
                 "tags": [
-                    "Book Controller"
+                    "Book"
                 ],
                 "operationId": "saveBook",
                 "requestBody": {
@@ -150,7 +150,7 @@
         "/books/cover/{book-id}": {
             "post": {
                 "tags": [
-                    "Book Controller"
+                    "Book"
                 ],
                 "operationId": "uploadBookCover",
                 "parameters": [
@@ -200,7 +200,7 @@
         "/books/borrow/{book-id}": {
             "post": {
                 "tags": [
-                    "Book Controller"
+                    "Book"
                 ],
                 "operationId": "borrowBook",
                 "parameters": [
@@ -292,7 +292,7 @@
         "/books/shareable/{book-id}": {
             "patch": {
                 "tags": [
-                    "Book Controller"
+                    "Book"
                 ],
                 "operationId": "updateShareable",
                 "parameters": [
@@ -324,7 +324,7 @@
         "/books/return/{book-id}": {
             "patch": {
                 "tags": [
-                    "Book Controller"
+                    "Book"
                 ],
                 "operationId": "returnBook",
                 "parameters": [
@@ -356,7 +356,7 @@
         "/books/return/approve/{book-id}": {
             "patch": {
                 "tags": [
-                    "Book Controller"
+                    "Book"
                 ],
                 "operationId": "approveReturnedBook",
                 "parameters": [
@@ -388,7 +388,7 @@
         "/books/archived/{book-id}": {
             "patch": {
                 "tags": [
-                    "Book Controller"
+                    "Book"
                 ],
                 "operationId": "updateArchivedStatus",
                 "parameters": [
@@ -420,7 +420,7 @@
         "/feedbacks/book/{book-id}": {
             "get": {
                 "tags": [
-                    "Feedback Controller"
+                    "Feedback"
                 ],
                 "operationId": "findAllFeedbacksByBook",
                 "parameters": [
@@ -471,7 +471,7 @@
         "/books/{book-id}": {
             "get": {
                 "tags": [
-                    "Book Controller"
+                    "Book"
                 ],
                 "operationId": "getBook",
                 "parameters": [
@@ -502,7 +502,7 @@
         "/books/returned": {
             "get": {
                 "tags": [
-                    "Book Controller"
+                    "Book"
                 ],
                 "operationId": "findAllReturnedBooks",
                 "parameters": [
@@ -544,7 +544,7 @@
         "/books/owner": {
             "get": {
                 "tags": [
-                    "Book Controller"
+                    "Book"
                 ],
                 "operationId": "findAllBooksByOwner",
                 "parameters": [
@@ -586,7 +586,7 @@
         "/books/borrowed": {
             "get": {
                 "tags": [
-                    "Book Controller"
+                    "Book"
                 ],
                 "operationId": "findAllBorrowedBooks",
                 "parameters": [
@@ -737,8 +737,7 @@
             },
             "AuthenticationRequest": {
                 "required": [
-                    "email",
-                    "password"
+                    "email"
                 ],
                 "type": "object",
                 "properties": {

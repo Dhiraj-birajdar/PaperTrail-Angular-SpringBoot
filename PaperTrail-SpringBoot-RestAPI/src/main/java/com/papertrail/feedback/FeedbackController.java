@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("feedbacks")
 @RequiredArgsConstructor
-@Tag(name = "Feedback Controller", description = "Feedback related endpoints")
+@Tag(name = "Feedback", description = "Feedback related endpoints")
 public class FeedbackController {
 
-    private final FeedbackService feedbackService;
+    private final FeedbackService service;
 
     @PostMapping
     public ResponseEntity<Integer> saveFeedback(
             @Valid @RequestBody FeedbackRequest feedbackRequest,
             Authentication connectedUser
     ) {
-        return ResponseEntity.ok(feedbackService.saveFeedback(feedbackRequest, connectedUser));
+        return ResponseEntity.ok(service.saveFeedback(feedbackRequest, connectedUser));
     }
 
     @GetMapping("/book/{book-id}")
@@ -31,7 +31,7 @@ public class FeedbackController {
             @RequestParam(defaultValue = "10", required = false) Integer size,
             Authentication connectedUser
     ) {
-        return ResponseEntity.ok(feedbackService.findAllFeedbacksByBook(bookId, page, size, connectedUser));
+        return ResponseEntity.ok(service.findAllFeedbacksByBook(bookId, page, size, connectedUser));
     }
 
 }

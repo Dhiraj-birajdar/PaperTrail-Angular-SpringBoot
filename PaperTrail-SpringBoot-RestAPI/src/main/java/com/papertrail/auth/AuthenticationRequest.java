@@ -2,7 +2,6 @@ package com.papertrail.auth;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,12 +12,10 @@ import lombok.Setter;
 @Builder
 public class AuthenticationRequest {
 
-    @Email(message = "Email should be valid")
-    @NotEmpty(message = "Email is required")
-    @NotBlank(message = "Email cannot be blank")
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email should be valid") // null is considered valid that,s why we need @NotBlank
     private String email;
 
-    @NotBlank(message = "password cannot be blank")
     @Size(min = 8, message = "Password should be at least 8 characters")
     private String password;
 }

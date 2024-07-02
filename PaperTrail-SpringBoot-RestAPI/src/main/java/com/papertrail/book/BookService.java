@@ -132,7 +132,7 @@ public class BookService {
         if (!book.getOwner().getId().equals(user.getId())) {
             throw new OperationNotPermittedException("You are not the owner of this book, you can't update archived status");
         }
-        book.setShareable(!book.isArchived()); // toggle archived status
+        book.setArchived(!book.isArchived()); // toggle archived status
         bookRepository.save(book);
         return book.getId();
     }
@@ -149,14 +149,16 @@ public class BookService {
         }
         final boolean isBorrowed = historyRepository.isBorrowed(bookId, user.getId());
         if (isBorrowed) {
-            throw new OperationNotPermittedException("Requested book is already borrowed by you or not returned yet.");
+            throw new OperationNotPermittedException("Requested book is already borrowed.");
         }
+        System.err.println("Borrowing book");
         BookTransactionHistory bookTransactionHistory = BookTransactionHistory.builder()
                 .user(user)
                 .book(book)
                 .returned(false)
                 .returnApproved(false)
                 .build();
+        System.err.println("Borrowing book before save");
         return historyRepository.save(bookTransactionHistory).getId();
     }
 

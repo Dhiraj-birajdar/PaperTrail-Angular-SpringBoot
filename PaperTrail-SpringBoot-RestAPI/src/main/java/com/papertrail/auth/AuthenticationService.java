@@ -2,6 +2,8 @@ package com.papertrail.auth;
 
 import com.papertrail.email.EmailService;
 import com.papertrail.email.EmailTemplateName;
+import com.papertrail.exception.OtpExpiredException;
+import com.papertrail.exception.OtpInvalidException;
 import com.papertrail.role.RoleRepository;
 import com.papertrail.security.JwtService;
 import com.papertrail.user.Token;
@@ -16,7 +18,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
@@ -106,12 +107,10 @@ public class AuthenticationService {
 //    @Transactional // rollback after exception
     public void activateAccount(String token) throws MessagingException {
         Token savedToken = tokenRepository.findByToken(token)
-                // todo: implement better exception handling
-                .orElseThrow(() -> new IllegalStateException("Invalid token"));
+                .orElseThrow(() -> new OtpInvalidException("Invalid OTP, Please try again"));
         if (savedToken.getExpiresAt().isBefore(LocalDateTime.now())) {
             sendValidationEmail(savedToken.getUser());
-            // todo implement better exception handling
-            throw new IllegalStateException("Token expired. A new token has been sent to your email");
+            throw new OtpExpiredException("OTP expired. A new token has been sent to your email");
         }
         var user = userRepository.findById(savedToken.getUser().getId())
                 .orElseThrow(()-> new UsernameNotFoundException("User not found"));
