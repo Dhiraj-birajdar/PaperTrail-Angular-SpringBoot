@@ -8,8 +8,8 @@ spring:
     multipart:
       max-file-size: 10MB
 #      max-request-size: 10MB
-  security:
-    user: { name: dev, password: dev, roles: ADMIN }
+#  security:
+#    user: { name: dev, password: dev, roles: ADMIN }
 
 springdoc:
   default-produces-media-type: application/json

@@ -12,11 +12,16 @@ services:
         - mysql-vol:/var/lib/mysql
     ports:
         - 3306:3306
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
         - papertrail-network
     restart: unless-stopped
 
-  # MailDev mail server
+  # MailDev mail server  // todo user docker:maildev/maildev mail server if live mail server not set up
   mail-dev:
     container_name: mail-dev-papertrail
     image: maildev/maildev
@@ -24,6 +29,25 @@ services:
       - 1080:1080
       - 25:1025
 
+  papertrail-api:
+    container_name: papertrail-api
+    image: papertrail-api-prod:1.0.0
+    ports:
+      - 8080:8080
+    networks:
+      - papertrail-network
+    depends_on:
+      database:
+        condition: service_healthy
+  papertrail-ui:
+    container_name: papertrail-ui
+    image: papertrail-ui-prod:1.0.0
+    ports:
+      - 4200:80
+    networks:
+      - papertrail-network
+    depends_on:
+      - papertrail-api
 
 volumes:
   mysql-vol:

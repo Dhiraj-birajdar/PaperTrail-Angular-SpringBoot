@@ -37,6 +37,8 @@ app:
   mailing:
     frontend:
       activation-url: http://localhost:4200/activate-account
+  cors:
+    origins: http://localhost:4200,http://localhost:8080
   file:
     upload:
       picture-output-path: ./uploads
