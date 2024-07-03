@@ -1,2 +1,2 @@
 /uploads
-/PaperTrail-SpringBoot-RestAPI/src/main/resources/application-prod.yml
+PaperTrail-SpringBoot-RestAPI/src/main/resources/application-prod.yml
