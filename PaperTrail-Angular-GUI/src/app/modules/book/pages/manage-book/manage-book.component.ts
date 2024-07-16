@@ -62,6 +62,11 @@ export class ManageBookComponent implements OnInit{
   }
 
   saveBook() {
+    if(this.selectedBookCover === undefined){
+      if(!this.errorMsg.includes("Please select a book cover"))
+        this.errorMsg.push('Please select a book cover');
+      return;
+    }
     this.bookService.saveBook({
       body:this.bookRequest
     }).subscribe({

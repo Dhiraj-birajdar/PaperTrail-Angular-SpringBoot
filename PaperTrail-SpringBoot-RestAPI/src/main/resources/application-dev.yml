@@ -1,5 +1,6 @@
 spring:
   datasource:
+#    url: jdbc:h2:mem:papertrail
     url: jdbc:mysql://localhost:3306/papertrail?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
     username: root
     password: root
@@ -28,17 +29,26 @@ spring:
         connectiontimeout: 5000
         timeout: 3000
         writetimeout: 5000
-
-app:
   security:
-    jwt:
-      secret-key: budqd3g39zOpV0aEvBqxlTiRm4HvDHKWlkajfdkeirekklakjhdsfs5f454fsdaf54654a54fsd54f5ds4f5
-      expiration: 86400000
-  mailing:
-    frontend:
-      activation-url: http://localhost:4200/activate-account
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:9090/realms/papertrail"
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+app:
+#  security:
+#    jwt:
+#      secret-key: budqd3g39zOpV0aEvBqxlTiRm4HvDHKWlkajfdkeirekklakjhdsfs5f454fsdaf54654a54fsd54f5ds4f5
+#      expiration: 86400000
+#  mailing:
+#    frontend:
+#      activation-url: http://localhost:4200/activate-account
   cors:
     origins: http://localhost:4200,http://localhost:8080
   file:
     upload:
       picture-output-path: ./uploads
+

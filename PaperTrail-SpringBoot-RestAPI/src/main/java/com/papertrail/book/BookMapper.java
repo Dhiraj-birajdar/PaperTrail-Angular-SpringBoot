@@ -2,12 +2,11 @@ package com.papertrail.book;
 
 import com.papertrail.file.FileUtils;
 import com.papertrail.history.BookTransactionHistory;
-import com.papertrail.user.User;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BookMapper {
-    public Book toBook(BookRequest request, User user) {
+    public Book toBook(BookRequest request/*, User user*/) {
         return Book.builder()
 //                .id(request.id()) // todo fix id null error
                 .title(request.title())
@@ -16,7 +15,7 @@ public class BookMapper {
                 .synopsis(request.synopsis())
                 .shareable(request.shareable())
                 .archived(false)
-                .owner(user)
+//                .owner(user)
                 .build();
     }
 
@@ -27,7 +26,7 @@ public class BookMapper {
                 .author(book.getAuthor())
                 .isbn(book.getIsbn())
                 .synopsis(book.getSynopsis())
-                .owner(book.getOwner().getFullName())
+//                .owner(book.getOwner().getFullName())
                 .rate(book.getRate())
                 .archived(book.isArchived())
                 .shareable(book.isShareable())

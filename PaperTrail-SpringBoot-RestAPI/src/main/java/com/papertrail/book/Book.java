@@ -3,7 +3,6 @@ package com.papertrail.book;
 import com.papertrail.feedback.Feedback;
 import com.papertrail.history.BookTransactionHistory;
 import com.papertrail.common.ParentEntity;
-import com.papertrail.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +19,7 @@ import java.util.List;
 @SuperBuilder
 @Entity
 public class Book extends ParentEntity {
-
+// TODO: https://youtu.be/Ppkys9dKadA?t=5111
     private String title;
     private String author;
     private String isbn;
@@ -29,9 +28,9 @@ public class Book extends ParentEntity {
     private boolean archived;
     private boolean shareable;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
+//    @ManyToOne
+//    @JoinColumn(name = "owner_id") // TODO: replaced by keycloak remove
+//    private User owner;
 
     @OneToMany(mappedBy = "book")
     private List<Feedback> feedbacks;

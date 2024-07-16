@@ -15,6 +15,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Deprecated(forRemoval = true, since = "1.0.0")
 public class EmailService {
 
     private final JavaMailSender mailSender;

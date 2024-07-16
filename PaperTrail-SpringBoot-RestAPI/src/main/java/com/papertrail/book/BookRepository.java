@@ -14,7 +14,7 @@ public interface BookRepository extends JpaRepository<Book, Integer>, JpaSpecifi
             "FROM Book b " +
             "WHERE b.archived = false " +
             "AND b.shareable = true " +
-            "AND b.owner.id != :id")
+            "AND b.createdBy != :id")
 //            "AND b.owner.id != ?2") // This is the same as the above query ?2 indicates the second parameter
-    Page<Book> findAllDisplaybleBooks(Pageable pageable, Integer id);
+    Page<Book> findAllDisplaybleBooks(Pageable pageable, String id);
 }

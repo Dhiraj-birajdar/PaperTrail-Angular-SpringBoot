@@ -4,7 +4,6 @@ import com.papertrail.book.Book;
 import com.papertrail.book.BookRepository;
 import com.papertrail.common.PageResponse;
 import com.papertrail.exception.OperationNotPermittedException;
-import com.papertrail.user.User;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -13,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -28,8 +28,8 @@ public class FeedbackService {
         if (!book.isShareable() || book.isArchived()) {
             throw new OperationNotPermittedException("You can't give feedback for this book.");
         }
-        User user = (User) connectedUser.getPrincipal();
-        if (book.getOwner().getId().equals(user.getId())) {
+//        User user = (User) connectedUser.getPrincipal();
+        if (Objects.equals(book.getCreatedBy(),connectedUser.getName())) {
             throw new OperationNotPermittedException("You can't give feedback for your own book.");
         }
         Feedback feedback = feedbackMapper.toFeedback(feedbackRequest);
@@ -38,11 +38,11 @@ public class FeedbackService {
 
     public PageResponse<FeedbackResponse> findAllFeedbacksByBook(Integer bookId, Integer page, Integer size, Authentication connectedUser) {
         Pageable pageable = Pageable.ofSize(size).withPage(page);
-        User user = (User) connectedUser.getPrincipal();
+//        User user = (User) connectedUser.getPrincipal();
         Page<Feedback> feedbacks = feedbackRepository.findAllByBookId(bookId, pageable);
 
         List<FeedbackResponse> feedbackResponses = feedbacks.stream()
-                .map(f -> feedbackMapper.toFeedbackResponse(f, user.getId()))
+                .map(f -> feedbackMapper.toFeedbackResponse(f, connectedUser.getName()))
                 .toList();
         return new PageResponse<>(
                 feedbackResponses,

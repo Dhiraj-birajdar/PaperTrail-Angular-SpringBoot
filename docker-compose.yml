@@ -28,7 +28,11 @@ services:
     ports:
       - 1080:1080
       - 25:1025
+    networks:
+      - papertrail-network
 
+
+  # Backend api
   papertrail-api:
     container_name: papertrail-api
     image: papertrail-api-prod:1.0.0
@@ -39,6 +43,8 @@ services:
     depends_on:
       database:
         condition: service_healthy
+
+  # Frontend ui
   papertrail-ui:
     container_name: papertrail-ui
     image: papertrail-ui-prod:1.0.0
@@ -49,9 +55,25 @@ services:
     depends_on:
       - papertrail-api
 
+  # keycloak
+  keycloak:
+    container_name: keycloak-papertrail
+    image: quay.io/keycloak/keycloak:25.0.1
+    ports:
+      - 9090:8080
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    networks:
+      - papertrail-network
+    command:
+      - "start-dev"
+
 volumes:
   mysql-vol:
     driver: local
+#  keycloak:
+#    driver: local
 
 networks:
   papertrail-network:

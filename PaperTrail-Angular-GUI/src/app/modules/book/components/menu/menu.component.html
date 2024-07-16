@@ -1,11 +1,11 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="javascript:void(0)">PaperTrail</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<!--    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"-->
+<!--            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"-->
+<!--    >-->
+<!--      <span class="navbar-toggler-icon"></span>-->
+<!--    </button>-->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
@@ -18,11 +18,11 @@
             <i class="fas fa-book"></i>&nbsp;My books
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" routerLink="waiting-list">
-            <i class="fas fa-heart"></i>&nbsp;Waiting list
-          </a>
-        </li>
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" aria-current="page" routerLink="waiting-list">-->
+<!--            <i class="fas fa-heart"></i>&nbsp;Waiting list-->
+<!--          </a>-->
+<!--        </li>-->
         <li class="nav-item">
           <a class="nav-link" aria-current="page" routerLink="returned-books">
             <i class="fas fa-home-alt"></i>&nbsp;Returned books
@@ -40,7 +40,7 @@
           <i class="fas fa-search"></i>
         </button>
         <span>Welcome</span>
-        <span class="text-capitalize fw-bold">John</span>
+        <span class="text-capitalize fw-bold">{{firstname}}</span>
         <button class="btn btn-outline-danger" type="button" (click)="signOut()">
           <i class="fas fa-sign-out-alt"></i>
         </button>

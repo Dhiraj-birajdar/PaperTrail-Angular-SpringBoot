@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {KeycloakService} from "../../../../services/keycloak/keycloak.service";
 
 @Component({
   selector: 'app-menu',
@@ -7,7 +8,22 @@ import {Component, OnInit} from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
+  firstname = 'user';
+
+  async assignProfileName(){
+     const parsedToken =  this.keycloakService.keycloak?.tokenParsed;
+    if (parsedToken) {
+      this.firstname = parsedToken['given_name'];
+    }
+  }
+
+  constructor(
+    private keycloakService: KeycloakService
+  ) {
+  }
+
   ngOnInit(): void {
+    this.assignProfileName();
     const linkColor = document.querySelectorAll('.nav-link');
     linkColor.forEach(link => {
       if (window.location.href.endsWith(link.getAttribute('href') || '')) {
@@ -22,8 +38,7 @@ export class MenuComponent implements OnInit {
     });
   }
 
-  signOut() {
-    localStorage.removeItem('token');
-    window.location.reload();
+  async signOut() {
+    this.keycloakService.logout();
   }
 }

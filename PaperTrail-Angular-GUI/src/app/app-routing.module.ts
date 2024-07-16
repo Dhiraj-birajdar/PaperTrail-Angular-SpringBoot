@@ -7,17 +7,22 @@ import {authGuard} from "./services/guard/auth.guard";
 
 const routes: Routes = [
   {
-    path: 'login',
-    component: LoginComponent
+    path: '',
+    redirectTo: 'books',
+    pathMatch: 'full'
   },
-  {
-    path: 'register',
-    component: RegisterComponent
-  },
-  {
-    path: 'activate-account',
-    component: ActivateAccountComponent
-  },
+  // {
+  //   path: 'login',
+  //   component: LoginComponent
+  // },
+  // {
+  //   path: 'register',
+  //   component: RegisterComponent
+  // },
+  // {
+  //   path: 'activate-account',
+  //   component: ActivateAccountComponent
+  // },
   {
     path: 'books',
     loadChildren: () => import('./modules/book/book.module').then(m => m.BookModule),

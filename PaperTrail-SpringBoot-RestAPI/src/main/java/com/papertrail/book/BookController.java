@@ -94,9 +94,11 @@ public class BookController {
     public ResponseEntity<?> uploadBookCover(
             @PathVariable("book-id") Integer bookId,
             @Parameter(description = "Cover image file")
-            @RequestPart("file") MultipartFile file,
+            @RequestPart(value = "file", required = false) MultipartFile file,
             Authentication connectedUser
     ){
+        if(file.isEmpty())
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is empty");
         service.uploadBookCover(bookId, file, connectedUser);
         return ResponseEntity.accepted().build();
     }

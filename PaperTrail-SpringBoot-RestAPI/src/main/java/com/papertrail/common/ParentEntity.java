@@ -37,9 +37,9 @@ public class ParentEntity {
 
     @CreatedBy
     @Column(updatable = false, nullable = false)
-    private Integer createdBy;
+    private String createdBy;
 
     @LastModifiedBy
     @Column(insertable = false)
-    private Integer lastModifiedBy;
+    private String lastModifiedBy;
 }
